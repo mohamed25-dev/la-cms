@@ -26,8 +26,7 @@
   <ul class="navbar-nav">
       @auth
       <li class="nav-item ml-3">
-          {{-- <a class="nav-link" href="{{ route('post.create') }}"><i class="fa fa-plus fa-fw"></i>موضوع جديد</a> --}}
-          <a class="nav-link" href="#"><i class="fa fa-plus fa-fw"></i>موضوع جديد</a>
+          <a class="nav-link" href="{{ route('posts.create') }}"><i class="fa fa-plus fa-fw"></i>موضوع جديد</a>
         </li>
       @endauth
       <!-- Search Box -->

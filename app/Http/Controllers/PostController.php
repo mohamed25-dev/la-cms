@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Traits\ImageUploadTrait;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
-
+    use ImageUploadTrait;
+    
     public $post;
+    
     public function __construct(Post $post)
     {
         $this->post = $post;
@@ -36,7 +40,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -47,7 +51,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        if (request()->hasFile('image')) {
+            $data['image_path'] = $this->uploadImage($request->image);
+        } else {
+            $data['image_path'] = 'default.jpg';
+        }
+
+        $data['user_id'] = auth()->id();
+
+        $this->post->create($data);
+        
+        return back()->with('success', trans('alerts.success'));
     }
 
     /**
@@ -68,9 +88,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -80,9 +100,21 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = request()->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        if (request()->hasFile('image')) {
+            $data['image_path'] = $this->uploadImage($request->image);
+        } 
+
+        $post->update($data);
+        
+        return back()->with('success', trans('alerts.success'));
     }
 
     /**
