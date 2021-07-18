@@ -32,9 +32,7 @@
       @endauth
       <!-- Search Box -->
       <li class="nav-item ml-3">
-      {{-- <form method="post" action="{{ route('search') }}"> --}}
-      <form method="post" action="#">
-
+      <form method="post" action="{{ route('search') }}">
           @csrf
           <div class="input-group col-sm-12 mt-1">
               <input type="text" class="form-control form-control-sm" name="keyword" placeholder="بحث"/>
