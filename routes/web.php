@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,14 @@ use Illuminate\Support\Facades\Route;
 Route::resource('posts', PostController::class);
 Route::resource('comments', CommentController::class);
 
+Route::get('/user/{user}', [ProfileController::class, 'getByUser'])->name('profile');
+Route::get('/user/{user}/comments', [ProfileController::class, 'getByUser'])->name('userComments');
 
-Route::get('/{id}/{slug}', [PostController::class, 'getByCategory'])->name('category');
 Route::post('/search', [PostController::class, 'search'])->name('search');
 
+Route::get('/{id}/{slug}', [PostController::class, 'getByCategory'])
+    ->name('category')
+    ->where('id', ['[0-9]+']);
 
 Route::get('/', function () {
     return view('index');

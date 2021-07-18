@@ -12,4 +12,9 @@ class Profile extends Model
     public function user () {
         return $this->belongsTo(User::class);
     }
+
+    public function getAvatarAttribute ($avatar)
+    {
+        return asset('storage/avatars/' . $avatar);
+    }
 }

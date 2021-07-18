@@ -27,7 +27,7 @@ class PostController extends Controller
     {
         $posts = $this
             ->post::with('user:id,name')
-            ->with('comment:id,user_id,body')
+            ->with('comments:id,user_id,body')
             ->approved()
             ->paginate(10);
 
