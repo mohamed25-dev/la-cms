@@ -1,19 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    public $page;
+
+    public function __construct(Page $page)
+    {
+        $this->page = $page;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Page $page)
     {
-        //
     }
 
     /**
@@ -23,7 +30,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.create');
     }
 
     /**
@@ -34,7 +41,14 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->validate([
+            'slug' => 'required',
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $this->page->create($data);
+        return back()->with('success', trans('alerts.success'));
     }
 
     /**
@@ -43,9 +57,10 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $page = $this->page->where('slug', $slug)->first();
+        return view('admin.pages.show', compact('page'));
     }
 
     /**

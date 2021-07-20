@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\PostController as AdminPostController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -18,11 +18,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('admin/posts', AdminPostController::class);
-Route::resource('comments', CommentController::class);
 Route::resource('admin/permissions', PermissionController::class);
+Route::resource('pages', PageController::class);
+Route::resource('comments', CommentController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('users', UserController::class);
-Route::resource('pages', PageController::class);
 
 Route::post('admin/roles', [RoleController::class, 'store'])->name('roles');
 Route::post('admin/rolePermissions', [RoleController::class, 'getPermissionsByRole'])->name('getPermissionsByRole');

@@ -11,14 +11,16 @@
       <li class="nav-item">
           <a class="nav-link" href="{{ url('/') }}"><i class="fa fa-home"></i>&nbsp;{{__('titles.Home')}}</a>
       </li>
+
       <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-file"></i>{{__('titles.Pages')}}
           </a>
+
           <div class="dropdown-menu text-right" aria-labelledby="navbarDropdown">
-              {{-- @foreach($pages as $page)
-              <a class="dropdown-item" href="{{ route('page.show',$page->slug ) }}">{{ $page->title }}</a>
-              @endforeach --}}
+              @foreach($pages as $page)
+                <a class="dropdown-item" href="{{ route('pages.show', $page->slug ) }}">{{ $page->title }}</a>
+              @endforeach
           </div>
       </li>
   </ul>
@@ -45,15 +47,13 @@
       <!-- Authentication Links -->
       @guest
           <li class="nav-item mr-3">
-              {{-- <a class="nav-link" href="{{ route('login') }}">{{ __('auth.Login') }}</a> --}}
-              <a class="nav-link" href="#">{{ __('auth.Login') }}</a>
-
+              <a class="nav-link" href="{{ route('login') }}">{{ __('auth.Login') }}</a>
           </li>
-          {{-- @if (Route::has('register'))
+          @if (Route::has('register'))
               <li class="nav-item">
                   <a class="nav-link" href="{{ route('register') }}">{{ __('auth.Register') }}</a>
               </li>
-          @endif --}}
+          @endif
       @else
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,15 +62,11 @@
               </a>
 
               <div class="dropdown-menu dropdown-menu-right  text-right" aria-labelledby="navbarDropdown">
-                  @admin
-                      {{-- <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="fas fa-cog fa-fw"></i>لوحة التحكم</a> --}}
-                      <a class="dropdown-item" href="#"><i class="fas fa-cog fa-fw"></i>لوحة التحكم</a>
-
-                  @endadmin
-                  {{-- <a class="dropdown-item" href="{{ route('profile',Auth::user()->id) }}"><i class="far fa-user fa-fw"></i>{{__('titles.Profile')}}</a> --}}
-                  <a class="dropdown-item" href="#"><i class="far fa-user fa-fw"></i>{{__('titles.Profile')}}</a>
-                  {{-- <a class="dropdown-item" href="{{ route('settings') }}"><i class="fas fa-cog fa-fw"></i>{{__('titles.Settings')}}</a> --}}
-                  <a class="dropdown-item" href="#"><i class="fas fa-cog fa-fw"></i>{{__('titles.Settings')}}</a>
+                  {{-- @admin --}}
+                      <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="fas fa-cog fa-fw"></i>لوحة التحكم</a>
+                  {{-- @endadmin --}}
+                  <a class="dropdown-item" href="{{ route('profile',Auth::user()->id) }}"><i class="far fa-user fa-fw"></i>{{__('titles.Profile')}}</a>
+                  <a class="dropdown-item" href="{{ route('settings') }}"><i class="fas fa-cog fa-fw"></i>{{__('titles.Settings')}}</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{ route('logout') }}"
                       onclick="event.preventDefault();
