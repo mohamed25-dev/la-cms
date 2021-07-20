@@ -5,8 +5,9 @@ namespace App\Http\View\Composers;
 use App\Models\Comment;
 use Illuminate\View\View;
 
-class CommentComposer {
-  
+class CommentComposer
+{
+
   protected $comments;
 
   public function __construct(Comment $comments)
@@ -16,7 +17,7 @@ class CommentComposer {
 
 
   public function compose(View $view)
-    {
-        $view->with('recentComments', $this->comments->with('post')->take(5)->latest()->get());
-    }
+  {
+    $view->with('recentComments', $this->comments->with('post')->take(5)->latest()->get());
+  }
 }

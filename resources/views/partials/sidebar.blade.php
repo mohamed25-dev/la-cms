@@ -20,7 +20,7 @@
           <ul class="list-group p-0">
           @foreach($recentComments as $comment)
               <li class="list-group-item">
-                  <img class="avatar" src="{{ asset('/storage/avatars/avatar.png') }}" alt="">
+                  <img class="avatar" src="{{ asset($comment->user->profile->avatar) }}" alt="">
                   <a href="{{route('posts.show',$comment->post->id)}}">{{ Str::limit($comment->body,30) }}</a>
               </li>
           @endforeach
