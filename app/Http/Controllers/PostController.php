@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Traits\ImageUploadTrait;
-use Facade\FlareClient\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -41,7 +40,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -91,6 +90,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        Gate::authorize('update', $post);
         return view('posts.edit', compact('post'));
     }
 
@@ -103,6 +103,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        Gate::authorize('update', $post);
+
         $data = request()->validate([
             'title' => 'required',
             'body' => 'required',
@@ -124,9 +126,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        Gate::authorize('delete', $post);
+        $post->delete();
+
+        return redirect('/user/' . auth()->id())->with('success', trans('alerts.success'));
     }
 
     public function getByCategory($id)

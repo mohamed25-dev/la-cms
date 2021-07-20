@@ -13,8 +13,12 @@
     <!-- Bootstrap core CSS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    
     <!-- Icons -->
-    <link href="{{ asset('/font-awesome/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin/sb-admin.css') }}" rel="stylesheet">
@@ -23,7 +27,7 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 
-<body class="fixed-nav text-right" id="page-top">
+<body class="fixed-nav text-right" id="page-top" dir="rtl">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light  bg-secondary fixed-top" id="mainNav">
         <div class="container">
@@ -57,7 +61,7 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapsePosts">
                         <li>
-                            <a href="{{ route('posts.index') }}">جميع المنشورات</a>
+                            <a href="{{ route('all') }}">جميع المنشورات</a>
                         </li>
                         <li>
                             <a href="#">إضافة منشور</a>

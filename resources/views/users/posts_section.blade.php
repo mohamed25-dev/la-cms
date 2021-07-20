@@ -3,7 +3,7 @@
 <div class="row mb-2">
     @foreach ($data->posts as $post)
         <div class="col-lg-3 col-md-4">
-            <div class="card mb-4">
+            <div class="card mb-1">
                 <div class="card-body">
                     <h5 class="card-title"><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></h5>
                 </div>
@@ -18,7 +18,12 @@
                     @endcan
 
                     @can('delete-post', $post)
-                        <a class="dropdown-item" href="{{ route('posts.destroy', $post->id) }}">حذف</a>
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="dropdown-item" type="submit" href="#">حذف</button>
+                            {{-- <button type="submit"> حذف</button> --}}
+                        </form>
                     @endcan
                 </div>
             </div>

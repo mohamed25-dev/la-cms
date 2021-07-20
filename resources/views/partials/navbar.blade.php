@@ -62,9 +62,9 @@
               </a>
 
               <div class="dropdown-menu dropdown-menu-right  text-right" aria-labelledby="navbarDropdown">
-                  {{-- @admin --}}
+                  @admin
                       <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="fas fa-cog fa-fw"></i>لوحة التحكم</a>
-                  {{-- @endadmin --}}
+                  @endadmin
                   <a class="dropdown-item" href="{{ route('profile',Auth::user()->id) }}"><i class="far fa-user fa-fw"></i>{{__('titles.Profile')}}</a>
                   <a class="dropdown-item" href="{{ route('settings') }}"><i class="fas fa-cog fa-fw"></i>{{__('titles.Settings')}}</a>
                   <div class="dropdown-divider"></div>

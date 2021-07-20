@@ -59,6 +59,15 @@ class User extends Authenticatable
 
     public function isAdmin () 
     {
-        return $this->role === 1;
+        return $this->role_id === 1;
+    }
+
+    public function isAllowed ($permission) 
+    {
+        $role = $this->role()->first();
+        if (!$role) {
+            return false;
+        }
+        return $role->permissions()->whereName($permission)->first() ? true : false;
     }
 }

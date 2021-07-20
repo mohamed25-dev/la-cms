@@ -20,6 +20,6 @@ class Admin
             return redirect('/');
         }
 
-        return $next($request());
+        return $next($request);
     }
 }

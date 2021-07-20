@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -59,6 +60,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        Gate::authorize('update', $post);
         return view('admin.posts.edit', compact('post'));
     }
 
@@ -73,6 +75,7 @@ class PostController extends Controller
     {
         $request['approved'] = $request->has('approved');
         
+        Gate::authorize('update', $post);
         if (request()->hasFile('image')) {
             $request['image_path'] = $this->uploadImage($request->image);
         }
@@ -87,8 +90,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        Gate::authorize('delete', $post);
+        $post->delete();
+
+        return redirect('/posts')->with('success', trans('alerts.success'));
     }
 }
