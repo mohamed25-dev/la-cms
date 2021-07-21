@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::resource('permissions', PermissionController::class);
 
     Route::get('/posts', [AdminPostController::class, 'index'])->name('all');
+    Route::put('/posts/{post}', [AdminPostController::class, 'approve'])->name('approvePost');
     Route::post('roles', [RoleController::class, 'store'])->name('roles');
     Route::post('rolePermissions', [RoleController::class, 'getPermissionsByRole'])->name('getPermissionsByRole');
 });

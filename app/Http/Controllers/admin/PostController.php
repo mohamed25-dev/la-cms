@@ -97,4 +97,13 @@ class PostController extends Controller
 
         return redirect('/posts')->with('success', trans('alerts.success'));
     }
+
+    public function approve(Request $request, Post $post)
+    {
+        $val = $request->approved === null ? true : false;
+
+        $post->update(['approved' => $val]);
+
+        return back();
+    }
 }

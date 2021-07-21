@@ -34,7 +34,13 @@
                   <td>{{$post->slug}}</td>
                   <td>{{ Str::limit($post->body,100)}}</td>
                   <td>{{$post->user->name}}</td>
-                  <td><input type="checkbox" value="{{$post->approved}}" {{$post->approved ? 'checked' : ''}}></td>
+                  <form action="{{route('approvePost', $post->id)}}" method="POST" id="approvePost">
+                    @csrf
+                    @method('PUT')
+                    <td><input type="checkbox" value="{{$post->approved}}" name="approved"
+                      {{$post->approved ? 'checked' : ''}} onChange="this.form.submit()">
+                  </td>
+                  </form>
                   <td>{{$post->category->title}}</td>
                   <td>
                     <a href="{{ route('posts.edit',$post->id) }}">
@@ -57,7 +63,7 @@
         <div class="card-footer small text-muted"></div>
       </div>
     </div>
- 
+
 @endsection
 
 @section('script')
