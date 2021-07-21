@@ -19,8 +19,10 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Page $page)
+    public function index()
     {
+        $pages = $this->page->all();
+        return view('admin.pages.index', compact('pages'));
     }
 
     /**
@@ -69,9 +71,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Page $page)
     {
-        //
+        return view('admin.pages.edit', compact('page'));
     }
 
     /**
@@ -81,9 +83,16 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Page $page)
     {
-        //
+        $data = request()->validate([
+            'slug' => 'required',
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $page->update($data);
+        return back()->with('success', trans('alerts.success'));
     }
 
     /**
@@ -92,8 +101,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Page $page)
     {
-        //
+        $page->delete();
+        return back();
     }
 }

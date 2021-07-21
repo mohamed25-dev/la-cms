@@ -1,11 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = $this->user->all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -34,7 +43,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role_id' => 'required'
+        ]);
+
+        $this->user->create($data);
+        return back()->with('success', trans('alerts.success'));
     }
 
     /**
@@ -54,9 +71,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
