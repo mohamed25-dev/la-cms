@@ -1,5 +1,5 @@
 ## برنامجي 
-## Content mMnagement system , enjoy it :)
+## Content Management system , enjoy it :)
 
 ### Running the App =>
 
